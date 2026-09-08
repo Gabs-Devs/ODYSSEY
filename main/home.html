@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Odyssey | Sua jornada começa aqui</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+  <canvas id="starfield"></canvas>
+
+  <header class="top-brand">
+    <span>ODYSSEY</span>
+  </header>
+
+  <main class="stage">
+
+    <div class="wheel-wrap" id="wheelWrap">
+      <div class="orbit-track"></div>
+      <div class="orbit" id="orbit"><!-- nós injetados via JS --></div>
+
+      <div class="core">
+        <span class="core-ring ring-1"></span>
+        <span class="core-ring ring-2"></span>
+        <span class="core-text">ODYSSEY</span>
+      </div>
+    </div>
+
+    <section class="info-panel" id="infoPanel">
+      <span class="info-index" id="infoIndex">00</span>
+      <h1 id="infoTitle">Escolha seu destino</h1>
+      <p id="infoDesc">Gire ou clique em um módulo da órbita para revelar cada capítulo da jornada.</p>
+    </section>
+
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
