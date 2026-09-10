@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Odyssey | Sua jornada começa aqui</title>
-  <link rel="stylesheet" href="main.css">
+  <title>Odyssey | Sua jornada pelos biomas da Terra</title>
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
@@ -30,11 +30,53 @@
     <section class="info-panel" id="infoPanel">
       <span class="info-index" id="infoIndex">00</span>
       <h1 id="infoTitle">Escolha seu destino</h1>
-      <p id="infoDesc">Gire ou clique em um módulo da órbita para revelar cada capítulo da jornada.</p>
+      <p id="infoDesc">Gire ou clique em um módulo da órbita para revelar cada bioma do planeta.</p>
+    </section>
+
+    <!-- Landing do bioma: fundo full-bleed com gradiente (cor das ondas -> roxo escuro)
+         e blocos translúcidos decorativos distribuídos pela composição. -->
+    <section
+      class="biome-landing"
+      id="biomeLanding"
+      aria-hidden="true"
+      aria-labelledby="landingTitle"
+    >
+      <div class="landing-clip">
+        <div class="landing-content">
+
+          <div class="landing-bg" aria-hidden="true">
+            <div class="landing-divider" id="landingDivider"></div>
+            <span class="landing-blob blob-1"></span>
+            <span class="landing-blob blob-2"></span>
+            <span class="landing-blob blob-3"></span>
+            <span class="landing-blob blob-4"></span>
+            <span class="landing-blob blob-5"></span>
+          </div>
+
+          <div class="landing-inner">
+            <button class="landing-close" id="landingClose" aria-label="Fechar detalhes do bioma">✕</button>
+
+            <div class="landing-hero">
+              <span class="landing-icon" id="landingIcon" aria-hidden="true"></span>
+              <h2 class="landing-title" id="landingTitle"></h2>
+              <p class="landing-tagline" id="landingTagline"></p>
+            </div>
+
+            <div class="landing-stats" id="landingStats"><!-- injetado via JS --></div>
+
+            <div class="landing-body" id="landingBody"><!-- injetado via JS --></div>
+
+            <p class="landing-fact" id="landingFact"></p>
+
+            <button class="landing-back" id="landingBack">← Voltar à órbita</button>
+          </div>
+
+        </div>
+      </div>
     </section>
 
   </main>
 
-  <script src="main.js"></script>
+  <script src="javascript/main.js" defer></script>
 </body>
 </html>
