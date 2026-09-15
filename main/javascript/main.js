@@ -1,8 +1,8 @@
 (function () {
   'use strict';
 
-  // Apenas oceano, amazônia e tundra estão ativos e possuem landing própria.
-  // Savana, deserto, corais e taiga ficam desativados, exibindo "Em breve".
+  // Apenas o Oceano está ativo. Tundra e Amazônia foram desativadas
+  // (mesmo padrão visual dos outros ícones "Em breve").
   const OPTIONS = [
     {
       icon: '🌊',
@@ -10,127 +10,54 @@
       slug: 'oceano',
       title: 'Oceano',
       desc: 'Cobrindo a maior parte da superfície da Terra, os oceanos regulam o clima e abrigam a maior biodiversidade do planeta.',
-      // Estrutura específica do oceano: zonas de profundidade,
-      // réplica do design de referência (blocos de cor sólida + cards translúcidos).
+      // Conteúdo placeholder — cada bolha guarda só o "tipo" e um
+      // rótulo genérico. Substitua pelos dados reais quando prontos.
       zones: [
         {
           theme: 'sunlight',
-          title: 'Sunlight Zone',
-          subtitle: 'A área menos profunda do oceano.',
-          cards: [
+          title: '[Título da Zona 1]',
+          bubbles: [
             {
               type: 'chart',
-              title: 'Absorção de Cor abaixo d\'água',
+              size: 'lg',
+              title: '[Título do gráfico]',
               items: [
-                { color: '#e53935', depth: '5 m' },
-                { color: '#fb8c00', depth: '10 m' },
-                { color: '#fdd835', depth: '20 m' },
-                { color: '#43a047', depth: '30 m' },
-                { color: '#1e88e5', depth: '50 m' },
-                { color: '#5e35b1', depth: '100 m' },
+                { depth: '[Item 1]' },
+                { depth: '[Item 2]' },
+                { depth: '[Item 3]' },
+                { depth: '[Item 4]' },
+                { depth: '[Item 5]' },
+                { depth: '[Item 6]' },
               ],
             },
-            {
-              type: 'text',
-              text: 'A cor se dissipa na água devido à absorção seletiva da luz pelas moléculas de água. Cores quentes, como a vermelha, são absorvidas mais rapidamente, enquanto cores frias, como a azul, podem penetrar em maiores profundidades. Isso resulta numa diminuição da intensidade das cores quentes à medida que a profundidade aumenta, com tonalidades azuis e verdes predominando em maiores profundidades.',
-            },
-            {
-              type: 'icons',
-              title: 'Peixes de água rasa mais comuns',
-              items: [
-                { icon: '🐟', label: 'Atum' },
-                { icon: '🐟', label: 'Sardinha' },
-                { icon: '🐠', label: 'Cavala' },
-                { icon: '🐡', label: 'Barracuda' },
-                { icon: '🐟', label: 'Badejo' },
-                { icon: '🐠', label: 'Bonito' },
-                { icon: '🐡', label: 'Pargo' },
-              ],
-            },
+            { type: 'icon', size: 'sm', label: '[Ícone 1]' },
+            { type: 'icon', size: 'sm', label: '[Ícone 2]' },
+            { type: 'icon', size: 'sm', label: '[Ícone 3]' },
+            { type: 'icon', size: 'sm', label: '[Ícone 4]' },
+            { type: 'icon', size: 'sm', label: '[Ícone 5]' },
+            { type: 'icon', size: 'sm', label: '[Ícone 6]' },
+            { type: 'icon', size: 'sm', label: '[Ícone 7]' },
           ],
         },
         {
           theme: 'twilight',
-          title: 'Luz',
-          cards: [
-            {
-              type: 'text',
-              text: 'A partir dessa área (cerca de 200 metros) a luz começa a se dissipar. Muitas criaturas têm uma aparência diferente do habitual, além disso algumas das espécies marinhas mais raras e distintas ficam nessa zona. Nessa zona todas as cores já "sumiram" pois já não são mais visíveis sem o auxílio de uma fonte de luz, ainda que seja possível enxergar algumas coisas.',
-            },
-            {
-              type: 'highlight',
-              html: 'A Zona Crepuscular do oceano, formalmente conhecida como zona mesopelágica, é encontrada a partir de <mark>200 a 1.000 metros</mark> abaixo da superfície.',
-              extra: 'Lar de uma variedade de espécies, desde o tamboril à lula-vampira e os chamados fosforescentes, a zona crepuscular é um lugar onde reina, sobretudo, a estranheza.',
-            },
-            {
-              type: 'stat-pair',
-              items: [
-                'Apenas 20% do carbono na superfície do oceano chega ao oceano profundo, enquanto 20% é consumido por animais e bactérias na zona crepuscular.',
-                'A zona crepuscular é um elo crucial entre a superfície e o oceano profundo, afetando a capacidade do oceano de armazenar dióxido de carbono.',
-              ],
-            },
+          title: '[Título da Zona 2]',
+          bubbles: [
+            { type: 'stat', size: 'md', label: '[Estatística principal]' },
+            { type: 'stat', size: 'sm', label: '[Estatística 1]' },
+            { type: 'stat', size: 'sm', label: '[Estatística 2]' },
+            { type: 'stat', size: 'sm', label: '[Estatística 3]' },
+            { type: 'stat', size: 'sm', label: '[Estatística 4]' },
           ],
         },
       ],
     },
-    {
-      icon: '🌲',
-      label: 'Em breve',
-      comingSoon: true,
-    },
-    {
-      icon: '🌴',
-      label: 'Amazônia',
-      slug: 'amazonia',
-      title: 'Amazônia',
-      tagline: 'A maior floresta tropical do planeta.',
-      desc: 'Um mar verde de biodiversidade que produz oxigênio, regula chuvas e abriga povos e espécies únicos no mundo.',
-      separator: 'trees',
-      stats: [
-        { label: 'Área aproximada', value: '~5,5M km²' },
-        { label: 'Países que abrange', value: '9' },
-        { label: 'Espécies de árvores', value: '+16 mil' },
-      ],
-      body: [
-        'A Floresta Amazônica se estende por nove países da América do Sul e concentra a maior biodiversidade terrestre já registrada. Estima-se que um único hectare possa abrigar mais espécies de árvores do que toda a América do Norte.',
-        'Seus rios formam a maior bacia hidrográfica do mundo, e a evapotranspiração das árvores ajuda a criar os chamados "rios voadores", responsáveis por levar umidade a regiões distantes do continente.',
-      ],
-      fact: 'Curiosidade: a Amazônia produz tanta umidade que parte da chuva que cai no Sul e Sudeste do Brasil se origina na floresta.',
-    },
-    {
-      icon: '🦁',
-      label: 'Em breve',
-      comingSoon: true,
-    },
-    {
-      icon: '🏜️',
-      label: 'Em breve',
-      comingSoon: true,
-    },
-    {
-      icon: '❄️',
-      label: 'Tundra',
-      slug: 'tundra',
-      title: 'Tundra',
-      tagline: 'A última fronteira antes do gelo permanente.',
-      desc: 'Um bioma gelado e sem árvores, onde o subsolo permanece congelado durante quase todo o ano.',
-      separator: 'snow',
-      stats: [
-        { label: 'Estação de crescimento', value: '6–10 semanas' },
-        { label: 'Solo congelado', value: 'Permafrost' },
-        { label: 'Temp. média anual', value: 'entre -5°C e -20°C' },
-      ],
-      body: [
-        'Na tundra, o subsolo permanece congelado o ano inteiro — um fenômeno chamado permafrost — enquanto apenas a camada mais superficial descongela por algumas semanas no verão, permitindo o surgimento rápido de musgos, líquens e pequenas flores.',
-        'É um bioma de extremos: renas, ursos-polares e aves migratórias dependem de uma janela curtíssima de comida abundante para sobreviver aos longos meses de escuridão e frio.',
-      ],
-      fact: 'Curiosidade: o degelo do permafrost pode liberar gases presos no solo há milhares de anos, tornando a tundra uma peça-chave no equilíbrio climático global.',
-    },
-    {
-      icon: '🪸',
-      label: 'Em breve',
-      comingSoon: true,
-    },
+    { icon: '🌲', label: 'Em breve', comingSoon: true },
+    { icon: '🌴', label: 'Em breve', comingSoon: true }, // Amazônia desativada
+    { icon: '🦁', label: 'Em breve', comingSoon: true },
+    { icon: '🏜️', label: 'Em breve', comingSoon: true },
+    { icon: '❄️', label: 'Em breve', comingSoon: true }, // Tundra desativada
+    { icon: '🪸', label: 'Em breve', comingSoon: true },
   ];
 
   // --- utilidades ---
@@ -170,6 +97,12 @@
   const landingBody = document.getElementById('landingBody');
   const landingFact = document.getElementById('landingFact');
   const oceanZones = document.getElementById('oceanZones');
+
+  const DEFAULT_INFO = {
+    index: '00',
+    title: 'Escolha seu destino',
+    desc: 'Gire ou clique em um módulo da órbita para revelar cada bioma do planeta.',
+  };
 
   let radius;
   let currentAngle = 0;
@@ -276,7 +209,17 @@
     infoDesc.textContent = opt.desc;
   }
 
-  // --- landing padrão (Amazônia / Tundra) ---
+  function resetInfoPanel() {
+    infoPanel.style.animation = 'none';
+    void infoPanel.offsetWidth;
+    infoPanel.style.animation = 'fadeUp .5s ease';
+
+    infoIndex.textContent = DEFAULT_INFO.index;
+    infoTitle.textContent = DEFAULT_INFO.title;
+    infoDesc.textContent = DEFAULT_INFO.desc;
+  }
+
+  // --- landing padrão genérica (infraestrutura reutilizável) ---
 
   function renderStats(stats) {
     return stats
@@ -294,122 +237,72 @@
     return paragraphs.map((p) => `<p>${p}</p>`).join('');
   }
 
-  // Divisor SVG temático: árvores (amazônia) ou neve (tundra).
-  function renderDivider(type) {
-    if (type === 'trees') {
-      const count = 11;
-      let shapes = '';
-      for (let i = 0; i < count; i++) {
-        const x = (1200 / count) * i + 54;
-        const h = 50 + ((i % 3) * 14);
-        const cls = i % 2 === 0 ? 'divider-shape-strong' : 'divider-shape-soft';
-        shapes += `<polygon class="divider-shape ${cls}" points="${x},${96 - h} ${x - 20},96 ${x + 20},96"></polygon>`;
-      }
-      return `<svg class="landing-divider-svg" viewBox="0 0 1200 96" preserveAspectRatio="none">${shapes}</svg>`;
-    }
-
-    if (type === 'snow') {
-      let flakes = '';
-      for (let i = 0; i < 28; i++) {
-        const x = (i * 43) % 1200;
-        const y = 8 + ((i * 31) % 62);
-        const r = 1 + (i % 3);
-        const cls = i % 2 === 0 ? 'divider-shape-strong' : 'divider-shape-soft';
-        flakes += `<circle class="divider-shape ${cls}" cx="${x}" cy="${y}" r="${r}"></circle>`;
-      }
-      const ground = `<path class="divider-shape divider-shape-strong" d="M0,82 L1200,82 L1200,96 L0,96 Z"></path>`;
-      return `<svg class="landing-divider-svg" viewBox="0 0 1200 96" preserveAspectRatio="none">${flakes}${ground}</svg>`;
-    }
-
+  // Divisor SVG genérico — hoje nenhum bioma ativo usa isso (Tundra e
+  // Amazônia estão desativadas), mas a função fica como stub reutilizável
+  // caso um novo bioma com divisor temático seja adicionado depois.
+  function renderDivider() {
     return '';
   }
 
-  // --- landing do oceano: zonas de profundidade ---
+  // --- landing do oceano: zonas com bolhas em estilo placeholder ---
 
-  function renderChartCard(card) {
-    const cols = card.items
+  function renderChartBubble(bubble) {
+    const cols = bubble.items
       .map(
-        (it) => `
-      <div class="depth-col">
-        <div class="depth-bar" style="background: linear-gradient(180deg, ${it.color}, ${it.color}00);"></div>
+        (it, i) => `
+      <div class="depth-col" style="--i:${i};">
+        <div class="depth-bar"></div>
         <span class="depth-label">${it.depth}</span>
       </div>`
       )
       .join('');
 
     return `
-      <div class="ocean-card">
-        <div class="ocean-card-title">${card.title}</div>
+      <div class="bubble bubble-${bubble.size} is-placeholder">
+        <span class="placeholder-glyph" aria-hidden="true">▦</span>
+        <div class="bubble-chart-title">${bubble.title}</div>
         <div class="depth-chart">${cols}</div>
+        <span class="placeholder-hint">Substitua pelo conteúdo real</span>
       </div>`;
   }
 
-  function renderTextCard(card) {
-    return `<div class="ocean-card"><p>${card.text}</p></div>`;
-  }
-
-  function renderIconsCard(card) {
-    const items = card.items
-      .map(
-        (it) => `
-      <div class="icon-grid-item">
-        <span class="icon-grid-icon" aria-hidden="true">${it.icon}</span>
-        <span class="icon-grid-label">${it.label}</span>
-      </div>`
-      )
-      .join('');
-
+  function renderIconBubble(bubble) {
     return `
-      <div class="ocean-card">
-        <div class="ocean-card-title">${card.title}</div>
-        <div class="icon-grid">${items}</div>
+      <div class="bubble bubble-${bubble.size} is-placeholder">
+        <span class="placeholder-glyph" aria-hidden="true">◇</span>
+        <span class="placeholder-label">${bubble.label}</span>
       </div>`;
   }
 
-  function renderHighlightCard(card) {
+  function renderStatBubble(bubble) {
     return `
-      <div class="ocean-card ocean-highlight">
-        <p>${card.html}</p>
-        <p>${card.extra}</p>
+      <div class="bubble bubble-${bubble.size} is-placeholder">
+        <span class="placeholder-value">—</span>
+        <span class="placeholder-label">${bubble.label}</span>
       </div>`;
   }
 
-  function renderStatPairCard(card) {
-    const items = card.items
-      .map((text) => `<div class="ocean-card"><p>${text}</p></div>`)
-      .join('');
-    return `<div class="stat-pair">${items}</div>`;
-  }
-
-  function renderOceanCard(card) {
-    switch (card.type) {
+  function renderBubble(bubble) {
+    switch (bubble.type) {
       case 'chart':
-        return renderChartCard(card);
-      case 'text':
-        return renderTextCard(card);
-      case 'icons':
-        return renderIconsCard(card);
-      case 'highlight':
-        return renderHighlightCard(card);
-      case 'stat-pair':
-        return renderStatPairCard(card);
+        return renderChartBubble(bubble);
+      case 'icon':
+        return renderIconBubble(bubble);
+      case 'stat':
+        return renderStatBubble(bubble);
       default:
         return '';
     }
   }
 
   function renderOceanZone(zone) {
-    const subtitle = zone.subtitle
-      ? `<p class="ocean-zone-subtitle">${zone.subtitle}</p>`
-      : '';
-    const cards = zone.cards.map(renderOceanCard).join('');
+    const bubbles = zone.bubbles.map(renderBubble).join('');
 
     return `
       <section class="ocean-zone" data-theme="${zone.theme}">
         <div class="ocean-zone-inner">
           <h3 class="ocean-zone-title">${zone.title}</h3>
-          ${subtitle}
-          ${cards}
+          <div class="ocean-bubbles">${bubbles}</div>
         </div>
       </section>`;
   }
@@ -464,6 +357,14 @@
     biomeLanding.classList.remove('is-open');
     biomeLanding.setAttribute('aria-hidden', 'true');
     if (lastFocusedNode) lastFocusedNode.focus();
+
+    // Restaura o estado inicial da roda: nenhum nó ativo, painel de
+    // informação de volta ao texto padrão, e a rotação automática
+    // (junto com a pausa por hover) volta a funcionar normalmente.
+    activeIndex = -1;
+    nodeEls.forEach(({ node }) => node.classList.remove('active'));
+    resetInfoPanel();
+    if (!prefersReducedMotion) autoRotate = true;
   }
 
   landingClose.addEventListener('click', closeLanding);
@@ -492,7 +393,6 @@
     orbit.style.transform = `rotate(${currentAngle}deg)`;
 
     // contra-rotação: mantém ícone/texto de cada nó sempre "em pé"
-    // (usa referência cacheada, sem querySelector a cada frame)
     nodeEls.forEach(({ inner }) => {
       inner.style.transform = `rotate(${-currentAngle}deg)`;
     });
@@ -522,7 +422,7 @@
     }
   });
 
-  // pausa a rotação automática ao passar o mouse (se nada selecionado ainda)
+  // pausa a rotação automática ao passar o mouse (se nada selecionado)
   wheelWrap.addEventListener('mouseenter', () => {
     if (activeIndex === -1) autoRotate = false;
   });

@@ -33,10 +33,9 @@
       <p id="infoDesc">Gire ou clique em um módulo da órbita para revelar cada bioma do planeta.</p>
     </section>
 
-    <!-- Landing do bioma: conteúdo direto na página.
-         Para o oceano, a estrutura é substituída por "zonas de
-         profundidade" em blocos de cor sólida, replicando o
-         design de referência. Amazônia/Tundra mantêm o layout padrão. -->
+    <!-- Landing do bioma. Atualmente só o Oceano está ativo. O
+         gradiente das zonas agora se estende até o botão de voltar,
+         sem deixar o fundo escuro do site aparecer entre eles. -->
     <section
       class="biome-landing"
       id="biomeLanding"
@@ -56,7 +55,8 @@
 
           <button class="landing-close" id="landingClose" aria-label="Fechar detalhes do bioma">✕</button>
 
-          <!-- Layout padrão (usado por Amazônia e Tundra) -->
+          <!-- Layout padrão genérico, reutilizável caso outro bioma
+               seja reativado no futuro -->
           <div class="landing-inner" id="landingInner">
             <div class="landing-hero">
               <span class="landing-icon" id="landingIcon" aria-hidden="true"></span>
@@ -69,7 +69,7 @@
             <p class="landing-fact" id="landingFact"></p>
           </div>
 
-          <!-- Layout de zonas de profundidade (usado pelo Oceano) -->
+          <!-- Layout de zonas (usado pelo Oceano) -->
           <div class="ocean-zones" id="oceanZones" hidden></div>
 
           <button class="landing-back" id="landingBack">← Voltar à órbita</button>

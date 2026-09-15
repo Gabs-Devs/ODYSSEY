@@ -47,6 +47,12 @@ html, body {
   padding: 90px 20px 60px;
 }
 
+/* ==========================================================
+   RODA SELETORA — giro automático contínuo, giro assistido até
+   o nó clicado, e contra-rotação dos ícones (funcionalidade
+   original, verificada e preservada).
+   ========================================================== */
+
 .wheel-wrap {
   position: relative;
   width: calc(var(--radius-wheel) * 2 + 90px);
@@ -119,7 +125,7 @@ html, body {
   box-shadow: 0 0 0 3px rgba(76, 201, 240, .35);
 }
 
-/* Nós desativados (biomas "em breve") */
+/* Nós desativados ("Em breve") — Tundra e Amazônia entram aqui agora */
 .node.is-disabled .node-inner {
   cursor: not-allowed;
   opacity: .38;
@@ -223,6 +229,13 @@ html, body {
   transition: opacity .35s ease .05s, transform .35s ease .05s;
 }
 
+/* No layout de zonas (Oceano), quem controla o espaçamento final
+   é o próprio .ocean-zones (ver abaixo) — isso evita a faixa
+   escura do fundo do site aparecendo entre o gradiente e o botão. */
+.landing-content.is-ocean {
+  padding-bottom: 0;
+}
+
 .biome-landing.is-open .landing-content {
   opacity: 1;
   transform: translateY(0);
@@ -245,7 +258,9 @@ html, body {
   color: var(--accent-current, var(--accent));
 }
 
-/* Fundo full-bleed usado por Amazônia/Tundra (ondas/árvores/neve) */
+/* Fundo full-bleed genérico — infraestrutura reutilizável caso
+   outro bioma seja reativado no futuro (hoje não é usado, já que
+   só o Oceano está ativo). */
 .landing-bg {
   position: absolute;
   inset: 0;
@@ -297,7 +312,6 @@ html, body {
   .landing-blob { display: none; }
 }
 
-/* Coluna de texto padrão (Amazônia/Tundra), por cima do fundo full-bleed */
 .landing-inner {
   position: relative;
   z-index: 1;
@@ -394,16 +408,6 @@ html, body {
   box-shadow: 0 0 24px var(--accent-current, var(--accent));
 }
 
-/* Cor de destaque de cada bioma ativo (Amazônia/Tundra) */
-.biome-landing[data-biome="amazonia"] {
-  --accent-current: #4cb457;
-  --accent-tint: rgba(76, 180, 87, .20);
-}
-.biome-landing[data-biome="tundra"] {
-  --accent-current: #9fd3e8;
-  --accent-tint: rgba(159, 211, 232, .22);
-}
-
 @media (max-width: 560px) {
   .biome-landing { --divider-height: 64px; }
   .landing-icon { font-size: 34px; }
@@ -413,171 +417,149 @@ html, body {
 }
 
 /* ==========================================================
-   ZONAS DO OCEANO — réplica do design de referência: blocos de
-   cor sólida em tela cheia por zona de profundidade, com cards
-   translúcidos claros flutuando por cima do conteúdo.
+   ZONAS DO OCEANO — fundo em gradiente contínuo, sólido, que
+   agora se estende até logo antes do botão "Voltar à órbita",
+   eliminando a faixa escura do fundo do site que aparecia no final.
    ========================================================== */
+
+.biome-landing[data-biome="oceano"] {
+  /* cor de destaque do botão "Voltar", combinando com o tom
+     roxo-escuro final da zona "Luz" (contraste melhor que o
+     azul-ciano padrão do site nesse contexto específico) */
+  --accent-current: #cdbdf0;
+}
 
 .ocean-zones {
   position: relative;
   z-index: 1;
   width: 100%;
+  /* padding-bottom generoso: o próprio gradiente preenche o
+     espaço até o botão de voltar, sem deixar o fundo escuro do
+     site aparecer entre eles */
+  padding-bottom: 64px;
+  background: linear-gradient(
+    180deg,
+    #52c7e6 0%,
+    #3f9bb3 30%,
+    #57508f 60%,
+    #3a2d68 100%
+  );
 }
 
 .ocean-zone {
   width: 100%;
-  padding: 72px 24px 64px;
+  padding: 72px 24px 0;
   display: flex;
   justify-content: center;
 }
 
 .ocean-zone-inner {
   width: 100%;
-  max-width: 720px;
+  max-width: 860px;
 }
 
-.ocean-zone[data-theme="sunlight"] {
-  background: linear-gradient(165deg, #d9f7ff 0%, #7fd8ef 55%, #4cc9e0 100%);
-  color: #0c2d42;
-}
-
-.ocean-zone[data-theme="twilight"] {
-  background: linear-gradient(165deg, #6e63c9 0%, #4a3a8a 55%, #241748 100%);
-  color: #241748;
-}
+.ocean-zone[data-theme="sunlight"] { color: #0c2d42; }
+.ocean-zone[data-theme="twilight"] { color: #f1ecff; }
 
 .ocean-zone-title {
   font-size: 34px;
   font-weight: 700;
   line-height: 1.15;
-  margin-bottom: 6px;
+  margin-bottom: 32px;
+  text-align: center;
 }
 
-.ocean-zone-subtitle {
-  font-size: 14px;
-  opacity: .85;
-  margin-bottom: 34px;
+.ocean-bubbles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
 }
 
-.ocean-card {
-  border-radius: 18px;
-  padding: 22px 24px;
-  margin-bottom: 22px;
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 10px 30px rgba(10, 30, 45, 0.08);
-  backdrop-filter: blur(4px);
+.bubble {
+  border-radius: 24px;
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 10px 26px rgba(10, 20, 35, 0.18);
 }
 
-.ocean-zone[data-theme="twilight"] .ocean-card {
-  background: rgba(230, 225, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 10px 30px rgba(10, 5, 30, 0.25);
+.ocean-zone[data-theme="sunlight"] .bubble {
+  background: #eaf9ff;
+  color: #0c2d42;
+}
+.ocean-zone[data-theme="twilight"] .bubble {
+  background: #4d3f86;
+  color: #f1ecff;
 }
 
-.ocean-card-title {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: .3px;
-  margin-bottom: 16px;
+/* Placeholder genérico: borda tracejada + tom neutro, adaptável a
+   qualquer tema/zona, claramente identificável como conteúdo a
+   ser substituído */
+.ocean-zone .bubble.is-placeholder {
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px dashed rgba(255, 255, 255, 0.35);
+  box-shadow: none;
 }
 
-.ocean-card p {
-  font-size: 13.5px;
-  line-height: 1.7;
-}
+.placeholder-glyph { font-size: 20px; opacity: .55; margin-bottom: 6px; }
+.placeholder-label { font-size: 11px; font-weight: 600; opacity: .8; }
+.placeholder-hint { font-size: 9px; opacity: .55; margin-top: 10px; }
+.placeholder-value { font-size: 22px; font-weight: 800; opacity: .5; }
 
-/* Gráfico: absorção de cor abaixo d'água */
+.bubble-lg { grid-column: span 4; }
+.bubble-md { grid-column: span 2; }
+.bubble-sm { grid-column: span 1; }
+
+.bubble-stat-value { font-size: 26px; font-weight: 800; line-height: 1.1; margin-bottom: 6px; }
+.bubble-stat-label { font-size: 11px; font-weight: 600; letter-spacing: .3px; opacity: .8; }
+
+.bubble-icon-glyph { font-size: 30px; margin-bottom: 8px; }
+.bubble-icon-label { font-size: 11px; font-weight: 600; }
+
+.bubble-chart-title { font-size: 12px; font-weight: 700; letter-spacing: .3px; margin-bottom: 18px; }
+
 .depth-chart {
+  --stagger-step: 10px;
+  --bar-step: 18px;
+  --bar-base: 40px;
   display: flex;
   align-items: flex-start;
   gap: 14px;
   overflow-x: auto;
   padding-bottom: 4px;
 }
-
 .depth-col {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex: 0 0 auto;
+  margin-top: calc(var(--stagger-step) * var(--i, 0));
 }
-
 .depth-bar {
   width: 34px;
   border-radius: 6px 6px 2px 2px;
+  height: calc(var(--bar-base) + var(--i, 0) * var(--bar-step));
 }
+.ocean-zone .bubble.is-placeholder .depth-bar {
+  background: rgba(255, 255, 255, .3);
+}
+.depth-label { font-size: 11px; font-weight: 600; margin-top: 8px; white-space: nowrap; }
 
-.depth-label {
-  font-size: 11px;
-  font-weight: 600;
-  margin-top: 8px;
-  white-space: nowrap;
-}
-
-.depth-col:nth-child(1) .depth-bar { height: 60px;  background: linear-gradient(180deg, #e53935, rgba(229,57,53,0)); }
-.depth-col:nth-child(2) .depth-bar { height: 84px;  background: linear-gradient(180deg, #fb8c00, rgba(251,140,0,0)); }
-.depth-col:nth-child(3) .depth-bar { height: 110px; background: linear-gradient(180deg, #fdd835, rgba(253,216,53,0)); }
-.depth-col:nth-child(4) .depth-bar { height: 136px; background: linear-gradient(180deg, #43a047, rgba(67,160,71,0)); }
-.depth-col:nth-child(5) .depth-bar { height: 164px; background: linear-gradient(180deg, #1e88e5, rgba(30,136,229,0)); }
-.depth-col:nth-child(6) .depth-bar { height: 192px; background: linear-gradient(180deg, #5e35b1, rgba(94,53,177,0)); }
-
-.depth-col:nth-child(2) { margin-top: 10px; }
-.depth-col:nth-child(3) { margin-top: 20px; }
-.depth-col:nth-child(4) { margin-top: 30px; }
-.depth-col:nth-child(5) { margin-top: 40px; }
-.depth-col:nth-child(6) { margin-top: 50px; }
-
-/* Grade de ícones (peixes) */
-.icon-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 22px 26px;
-}
-.icon-grid-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 64px;
-}
-.icon-grid-icon { font-size: 24px; margin-bottom: 6px; }
-.icon-grid-label { font-size: 11px; font-weight: 600; }
-
-/* Card de destaque com trecho em realce */
-.ocean-highlight mark {
-  background: none;
-  color: #ffb454;
-  font-weight: 700;
-}
-.ocean-zone[data-theme="sunlight"] .ocean-highlight mark {
-  color: #b5501e;
-}
-.ocean-highlight p + p {
-  margin-top: 14px;
-}
-
-/* Par de cards de estatística lado a lado */
-.stat-pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 0;
-}
-.stat-pair .ocean-card {
-  margin-bottom: 0;
+@media (max-width: 900px) {
+  .ocean-bubbles { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 560px) {
-  .ocean-zone { padding: 56px 18px 48px; }
-  .ocean-zone-title { font-size: 26px; }
-  .ocean-card { padding: 18px 18px; }
-  .stat-pair { grid-template-columns: 1fr; }
+  .ocean-zones { padding-bottom: 40px; }
+  .ocean-zone { padding: 56px 18px 0; }
+  .ocean-zone-title { font-size: 26px; margin-bottom: 24px; }
+  .ocean-bubbles { grid-template-columns: 1fr; gap: 14px; }
+  .bubble { padding: 18px 14px; }
+  .depth-chart { --stagger-step: 6px; --bar-step: 12px; --bar-base: 30px; }
   .depth-bar { width: 26px; }
-  .depth-col:nth-child(2) { margin-top: 6px; }
-  .depth-col:nth-child(3) { margin-top: 12px; }
-  .depth-col:nth-child(4) { margin-top: 18px; }
-  .depth-col:nth-child(5) { margin-top: 24px; }
-  .depth-col:nth-child(6) { margin-top: 30px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
