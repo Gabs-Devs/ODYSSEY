@@ -33,18 +33,19 @@
       <p id="infoDesc">Gire ou clique em um módulo da órbita para revelar cada bioma do planeta.</p>
     </section>
 
-    <!-- Landing do bioma: fundo full-bleed com gradiente (cor das ondas -> roxo escuro)
-         e blocos translúcidos decorativos distribuídos pela composição. -->
+    <!-- Landing do bioma: conteúdo direto na página.
+         Para o oceano, a estrutura é substituída por "zonas de
+         profundidade" em blocos de cor sólida, replicando o
+         design de referência. Amazônia/Tundra mantêm o layout padrão. -->
     <section
       class="biome-landing"
       id="biomeLanding"
       aria-hidden="true"
-      aria-labelledby="landingTitle"
     >
       <div class="landing-clip">
-        <div class="landing-content">
+        <div class="landing-content" id="landingContent">
 
-          <div class="landing-bg" aria-hidden="true">
+          <div class="landing-bg" id="landingBg" aria-hidden="true">
             <div class="landing-divider" id="landingDivider"></div>
             <span class="landing-blob blob-1"></span>
             <span class="landing-blob blob-2"></span>
@@ -53,9 +54,10 @@
             <span class="landing-blob blob-5"></span>
           </div>
 
-          <div class="landing-inner">
-            <button class="landing-close" id="landingClose" aria-label="Fechar detalhes do bioma">✕</button>
+          <button class="landing-close" id="landingClose" aria-label="Fechar detalhes do bioma">✕</button>
 
+          <!-- Layout padrão (usado por Amazônia e Tundra) -->
+          <div class="landing-inner" id="landingInner">
             <div class="landing-hero">
               <span class="landing-icon" id="landingIcon" aria-hidden="true"></span>
               <h2 class="landing-title" id="landingTitle"></h2>
@@ -63,14 +65,14 @@
             </div>
 
             <div class="landing-stats" id="landingStats"><!-- injetado via JS --></div>
-
             <div class="landing-body" id="landingBody"><!-- injetado via JS --></div>
-
             <p class="landing-fact" id="landingFact"></p>
-
-            <button class="landing-back" id="landingBack">← Voltar à órbita</button>
           </div>
 
+          <!-- Layout de zonas de profundidade (usado pelo Oceano) -->
+          <div class="ocean-zones" id="oceanZones" hidden></div>
+
+          <button class="landing-back" id="landingBack">← Voltar à órbita</button>
         </div>
       </div>
     </section>

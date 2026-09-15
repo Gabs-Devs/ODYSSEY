@@ -9,19 +9,69 @@
       label: 'Oceano',
       slug: 'oceano',
       title: 'Oceano',
-      tagline: 'O maior bioma do planeta, quase todo submerso.',
       desc: 'Cobrindo a maior parte da superfície da Terra, os oceanos regulam o clima e abrigam a maior biodiversidade do planeta.',
-      separator: 'waves',
-      stats: [
-        { label: 'Superfície da Terra', value: '~71%' },
-        { label: 'Profundidade média', value: '~3.700 m' },
-        { label: 'Espécies catalogadas', value: '+240 mil' },
+      // Estrutura específica do oceano: zonas de profundidade,
+      // réplica do design de referência (blocos de cor sólida + cards translúcidos).
+      zones: [
+        {
+          theme: 'sunlight',
+          title: 'Sunlight Zone',
+          subtitle: 'A área menos profunda do oceano.',
+          cards: [
+            {
+              type: 'chart',
+              title: 'Absorção de Cor abaixo d\'água',
+              items: [
+                { color: '#e53935', depth: '5 m' },
+                { color: '#fb8c00', depth: '10 m' },
+                { color: '#fdd835', depth: '20 m' },
+                { color: '#43a047', depth: '30 m' },
+                { color: '#1e88e5', depth: '50 m' },
+                { color: '#5e35b1', depth: '100 m' },
+              ],
+            },
+            {
+              type: 'text',
+              text: 'A cor se dissipa na água devido à absorção seletiva da luz pelas moléculas de água. Cores quentes, como a vermelha, são absorvidas mais rapidamente, enquanto cores frias, como a azul, podem penetrar em maiores profundidades. Isso resulta numa diminuição da intensidade das cores quentes à medida que a profundidade aumenta, com tonalidades azuis e verdes predominando em maiores profundidades.',
+            },
+            {
+              type: 'icons',
+              title: 'Peixes de água rasa mais comuns',
+              items: [
+                { icon: '🐟', label: 'Atum' },
+                { icon: '🐟', label: 'Sardinha' },
+                { icon: '🐠', label: 'Cavala' },
+                { icon: '🐡', label: 'Barracuda' },
+                { icon: '🐟', label: 'Badejo' },
+                { icon: '🐠', label: 'Bonito' },
+                { icon: '🐡', label: 'Pargo' },
+              ],
+            },
+          ],
+        },
+        {
+          theme: 'twilight',
+          title: 'Luz',
+          cards: [
+            {
+              type: 'text',
+              text: 'A partir dessa área (cerca de 200 metros) a luz começa a se dissipar. Muitas criaturas têm uma aparência diferente do habitual, além disso algumas das espécies marinhas mais raras e distintas ficam nessa zona. Nessa zona todas as cores já "sumiram" pois já não são mais visíveis sem o auxílio de uma fonte de luz, ainda que seja possível enxergar algumas coisas.',
+            },
+            {
+              type: 'highlight',
+              html: 'A Zona Crepuscular do oceano, formalmente conhecida como zona mesopelágica, é encontrada a partir de <mark>200 a 1.000 metros</mark> abaixo da superfície.',
+              extra: 'Lar de uma variedade de espécies, desde o tamboril à lula-vampira e os chamados fosforescentes, a zona crepuscular é um lugar onde reina, sobretudo, a estranheza.',
+            },
+            {
+              type: 'stat-pair',
+              items: [
+                'Apenas 20% do carbono na superfície do oceano chega ao oceano profundo, enquanto 20% é consumido por animais e bactérias na zona crepuscular.',
+                'A zona crepuscular é um elo crucial entre a superfície e o oceano profundo, afetando a capacidade do oceano de armazenar dióxido de carbono.',
+              ],
+            },
+          ],
+        },
       ],
-      body: [
-        'Os oceanos formam um único sistema interligado que troca calor, oxigênio e nutrientes entre todos os continentes. Suas correntes moldam o clima em escala global e absorvem grande parte do carbono emitido na atmosfera.',
-        'Da zona de arrebentação às fossas abissais, cada camada de profundidade sustenta uma comunidade própria — de recifes vibrantes a criaturas bioluminescentes que nunca viram a luz do sol.',
-      ],
-      fact: 'Curiosidade: menos de 20% do fundo oceânico foi mapeado em alta resolução — conhecemos melhor a superfície de Marte.',
     },
     {
       icon: '🌲',
@@ -105,17 +155,21 @@
   const infoIndex = document.getElementById('infoIndex');
   const infoPanel = document.getElementById('infoPanel');
 
-  // --- referências DOM: landing (conteúdo direto na página) ---
+  // --- referências DOM: landing ---
   const biomeLanding = document.getElementById('biomeLanding');
+  const landingContent = document.getElementById('landingContent');
+  const landingBg = document.getElementById('landingBg');
   const landingDivider = document.getElementById('landingDivider');
   const landingClose = document.getElementById('landingClose');
   const landingBack = document.getElementById('landingBack');
+  const landingInner = document.getElementById('landingInner');
   const landingIcon = document.getElementById('landingIcon');
   const landingTitle = document.getElementById('landingTitle');
   const landingTagline = document.getElementById('landingTagline');
   const landingStats = document.getElementById('landingStats');
   const landingBody = document.getElementById('landingBody');
   const landingFact = document.getElementById('landingFact');
+  const oceanZones = document.getElementById('oceanZones');
 
   let radius;
   let currentAngle = 0;
@@ -147,7 +201,7 @@
 
       if (opt.comingSoon) {
         node.setAttribute('aria-disabled', 'true');
-        node.setAttribute('aria-label', `${opt.icon ? '' : ''}Bioma em breve`);
+        node.setAttribute('aria-label', 'Bioma em breve');
         node.setAttribute('tabindex', '-1');
       } else {
         node.setAttribute('role', 'button');
@@ -222,7 +276,7 @@
     infoDesc.textContent = opt.desc;
   }
 
-  // --- landing (conteúdo direto na página) ---
+  // --- landing padrão (Amazônia / Tundra) ---
 
   function renderStats(stats) {
     return stats
@@ -240,58 +294,157 @@
     return paragraphs.map((p) => `<p>${p}</p>`).join('');
   }
 
-  // Divisor SVG temático: ondas (oceano), árvores (amazônia) ou neve (tundra).
-  // É a única separação visual entre a roda e o conteúdo do bioma.
+  // Divisor SVG temático: árvores (amazônia) ou neve (tundra).
   function renderDivider(type) {
-    if (type === 'waves') {
-      return `
-        <svg class="landing-divider-svg" viewBox="0 0 1200 64" preserveAspectRatio="none">
-          <path class="divider-shape divider-shape-soft"
-            d="M0,32 C150,60 350,4 600,32 C850,60 1050,4 1200,32 L1200,64 L0,64 Z"></path>
-          <path class="divider-shape divider-shape-strong"
-            d="M0,44 C150,20 350,68 600,44 C850,20 1050,68 1200,44 L1200,64 L0,64 Z"></path>
-        </svg>`;
-    }
-
     if (type === 'trees') {
-      const count = 9;
+      const count = 11;
       let shapes = '';
       for (let i = 0; i < count; i++) {
-        const x = (1200 / count) * i + 66;
-        const h = 34 + ((i % 3) * 10);
+        const x = (1200 / count) * i + 54;
+        const h = 50 + ((i % 3) * 14);
         const cls = i % 2 === 0 ? 'divider-shape-strong' : 'divider-shape-soft';
-        shapes += `<polygon class="divider-shape ${cls}" points="${x},${64 - h} ${x - 16},64 ${x + 16},64"></polygon>`;
+        shapes += `<polygon class="divider-shape ${cls}" points="${x},${96 - h} ${x - 20},96 ${x + 20},96"></polygon>`;
       }
-      return `<svg class="landing-divider-svg" viewBox="0 0 1200 64" preserveAspectRatio="none">${shapes}</svg>`;
+      return `<svg class="landing-divider-svg" viewBox="0 0 1200 96" preserveAspectRatio="none">${shapes}</svg>`;
     }
 
     if (type === 'snow') {
       let flakes = '';
-      for (let i = 0; i < 22; i++) {
-        const x = (i * 53) % 1200;
-        const y = 6 + ((i * 37) % 40);
+      for (let i = 0; i < 28; i++) {
+        const x = (i * 43) % 1200;
+        const y = 8 + ((i * 31) % 62);
         const r = 1 + (i % 3);
         const cls = i % 2 === 0 ? 'divider-shape-strong' : 'divider-shape-soft';
         flakes += `<circle class="divider-shape ${cls}" cx="${x}" cy="${y}" r="${r}"></circle>`;
       }
-      const ground = `<path class="divider-shape divider-shape-strong" d="M0,54 L1200,54 L1200,64 L0,64 Z"></path>`;
-      return `<svg class="landing-divider-svg" viewBox="0 0 1200 64" preserveAspectRatio="none">${flakes}${ground}</svg>`;
+      const ground = `<path class="divider-shape divider-shape-strong" d="M0,82 L1200,82 L1200,96 L0,96 Z"></path>`;
+      return `<svg class="landing-divider-svg" viewBox="0 0 1200 96" preserveAspectRatio="none">${flakes}${ground}</svg>`;
     }
 
     return '';
   }
 
+  // --- landing do oceano: zonas de profundidade ---
+
+  function renderChartCard(card) {
+    const cols = card.items
+      .map(
+        (it) => `
+      <div class="depth-col">
+        <div class="depth-bar" style="background: linear-gradient(180deg, ${it.color}, ${it.color}00);"></div>
+        <span class="depth-label">${it.depth}</span>
+      </div>`
+      )
+      .join('');
+
+    return `
+      <div class="ocean-card">
+        <div class="ocean-card-title">${card.title}</div>
+        <div class="depth-chart">${cols}</div>
+      </div>`;
+  }
+
+  function renderTextCard(card) {
+    return `<div class="ocean-card"><p>${card.text}</p></div>`;
+  }
+
+  function renderIconsCard(card) {
+    const items = card.items
+      .map(
+        (it) => `
+      <div class="icon-grid-item">
+        <span class="icon-grid-icon" aria-hidden="true">${it.icon}</span>
+        <span class="icon-grid-label">${it.label}</span>
+      </div>`
+      )
+      .join('');
+
+    return `
+      <div class="ocean-card">
+        <div class="ocean-card-title">${card.title}</div>
+        <div class="icon-grid">${items}</div>
+      </div>`;
+  }
+
+  function renderHighlightCard(card) {
+    return `
+      <div class="ocean-card ocean-highlight">
+        <p>${card.html}</p>
+        <p>${card.extra}</p>
+      </div>`;
+  }
+
+  function renderStatPairCard(card) {
+    const items = card.items
+      .map((text) => `<div class="ocean-card"><p>${text}</p></div>`)
+      .join('');
+    return `<div class="stat-pair">${items}</div>`;
+  }
+
+  function renderOceanCard(card) {
+    switch (card.type) {
+      case 'chart':
+        return renderChartCard(card);
+      case 'text':
+        return renderTextCard(card);
+      case 'icons':
+        return renderIconsCard(card);
+      case 'highlight':
+        return renderHighlightCard(card);
+      case 'stat-pair':
+        return renderStatPairCard(card);
+      default:
+        return '';
+    }
+  }
+
+  function renderOceanZone(zone) {
+    const subtitle = zone.subtitle
+      ? `<p class="ocean-zone-subtitle">${zone.subtitle}</p>`
+      : '';
+    const cards = zone.cards.map(renderOceanCard).join('');
+
+    return `
+      <section class="ocean-zone" data-theme="${zone.theme}">
+        <div class="ocean-zone-inner">
+          <h3 class="ocean-zone-title">${zone.title}</h3>
+          ${subtitle}
+          ${cards}
+        </div>
+      </section>`;
+  }
+
+  function renderOceanZones(zones) {
+    return zones.map(renderOceanZone).join('');
+  }
+
   function openLanding(index) {
     const opt = OPTIONS[index];
+    const isOcean = !!opt.zones;
 
     biomeLanding.dataset.biome = opt.slug;
-    landingDivider.innerHTML = renderDivider(opt.separator);
-    landingIcon.textContent = opt.icon;
-    landingTitle.textContent = opt.title;
-    landingTagline.textContent = opt.tagline;
-    landingStats.innerHTML = renderStats(opt.stats);
-    landingBody.innerHTML = renderBody(opt.body);
-    landingFact.textContent = opt.fact;
+    biomeLanding.setAttribute('aria-label', opt.title);
+    landingContent.classList.toggle('is-ocean', isOcean);
+
+    if (isOcean) {
+      oceanZones.innerHTML = renderOceanZones(opt.zones);
+      oceanZones.hidden = false;
+      landingInner.hidden = true;
+      landingBg.hidden = true;
+    } else {
+      oceanZones.innerHTML = '';
+      oceanZones.hidden = true;
+      landingInner.hidden = false;
+      landingBg.hidden = false;
+
+      landingDivider.innerHTML = renderDivider(opt.separator);
+      landingIcon.textContent = opt.icon;
+      landingTitle.textContent = opt.title;
+      landingTagline.textContent = opt.tagline;
+      landingStats.innerHTML = renderStats(opt.stats);
+      landingBody.innerHTML = renderBody(opt.body);
+      landingFact.textContent = opt.fact;
+    }
 
     biomeLanding.classList.add('is-open');
     biomeLanding.setAttribute('aria-hidden', 'false');
