@@ -33,50 +33,6 @@
       <p id="infoDesc">Gire ou clique em um módulo da órbita para revelar cada bioma do planeta.</p>
     </section>
 
-    <!-- Landing do bioma. Atualmente só o Oceano está ativo. O
-         gradiente das zonas agora se estende até o botão de voltar,
-         sem deixar o fundo escuro do site aparecer entre eles. -->
-    <section
-      class="biome-landing"
-      id="biomeLanding"
-      aria-hidden="true"
-    >
-      <div class="landing-clip">
-        <div class="landing-content" id="landingContent">
-
-          <div class="landing-bg" id="landingBg" aria-hidden="true">
-            <div class="landing-divider" id="landingDivider"></div>
-            <span class="landing-blob blob-1"></span>
-            <span class="landing-blob blob-2"></span>
-            <span class="landing-blob blob-3"></span>
-            <span class="landing-blob blob-4"></span>
-            <span class="landing-blob blob-5"></span>
-          </div>
-
-          <button class="landing-close" id="landingClose" aria-label="Fechar detalhes do bioma">✕</button>
-
-          <!-- Layout padrão genérico, reutilizável caso outro bioma
-               seja reativado no futuro -->
-          <div class="landing-inner" id="landingInner">
-            <div class="landing-hero">
-              <span class="landing-icon" id="landingIcon" aria-hidden="true"></span>
-              <h2 class="landing-title" id="landingTitle"></h2>
-              <p class="landing-tagline" id="landingTagline"></p>
-            </div>
-
-            <div class="landing-stats" id="landingStats"><!-- injetado via JS --></div>
-            <div class="landing-body" id="landingBody"><!-- injetado via JS --></div>
-            <p class="landing-fact" id="landingFact"></p>
-          </div>
-
-          <!-- Layout de zonas (usado pelo Oceano) -->
-          <div class="ocean-zones" id="oceanZones" hidden></div>
-
-          <button class="landing-back" id="landingBack">← Voltar à órbita</button>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <script src="javascript/main.js" defer></script>
