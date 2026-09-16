@@ -1,0 +1,18 @@
+:root {
+  --bg-deep: #04050d;
+  --accent: #4cc9f0;
+  --accent-2: #ffb454;
+  --text-light: #eef2f7;
+  --text-dim: #8b93a7;
+  --radius-wheel: 190px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  min-height: 100%;
+  background: radial-gradient(circle at 50% 20%, #0c1024 0%, #04050d 60%, #010103 100%);
+  color: var(--text-light);
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+}
