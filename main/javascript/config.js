@@ -14,6 +14,4 @@ export const OPTIONS = [
   { icon: '🪸', label: 'Em breve', comingSoon: true },
 ];
 
-// Tempo (em ms) que a roda fica parada mostrando o item selecionado
-// antes de retomar o giro automático sozinha.
-export const RESUME_DELAY = 3500;
+export const RESUME_DELAY = 10000;

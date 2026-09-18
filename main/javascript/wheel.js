@@ -152,7 +152,7 @@ export function stopLoop() {
   }
 }
 
-// pausa a rotação automática ao passar o mouse (se nada selecionado)
+
 wheelWrap.addEventListener('mouseenter', () => {
   if (activeIndex === -1) autoRotate = false;
 });
