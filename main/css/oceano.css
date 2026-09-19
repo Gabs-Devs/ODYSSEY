@@ -131,20 +131,20 @@ header h1 {
   justify-content: center;
 }
 
-#big-card {
+.big-card {
   width: 100%;
   max-width: 800px;
   min-height: 450px;
   height: auto;
 }
 
-#med-card {
+.med-card {
   width: 350px;
   min-height: 300px;
   height: auto;
 }
 
-#content-text {
+.content-text {
   color: #024B61;
   font-size: max(25px, 1.5vw);
   font-family:"roman-sd";
@@ -165,12 +165,12 @@ header h1 {
     padding: 20px;
   }
 
-  #big-card {
+  .big-card {
     width: calc(100% - 30px);
     min-height: auto;
   }
 
-  #content-text {
+  .content-text {
     font-size: 20px;
     line-height: 1.5;
   }
@@ -181,7 +181,7 @@ header h1 {
     gap: 30px;
   }
 
-  #med-card {
+  .med-card {
     width: calc(100% - 30px);
   }
 }

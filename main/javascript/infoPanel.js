@@ -15,7 +15,7 @@ export function updateInfoPanel(index) {
   const opt = OPTIONS[index];
 
   infoPanel.style.animation = 'none';
-  void infoPanel.offsetWidth; // força reflow pra reiniciar a animação
+  void infoPanel.offsetWidth; 
   infoPanel.style.animation = 'fadeUp .5s ease';
 
   infoIndex.textContent = String(index + 1).padStart(2, '0');

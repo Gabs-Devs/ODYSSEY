@@ -3,3 +3,6 @@
 @import url(wheel.css);
 @import url(info-panel.css);
 @import url(responsive.css);
+.bioma-landing {
+  width: 100%;
+}

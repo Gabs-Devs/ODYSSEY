@@ -2,8 +2,7 @@ const starfieldCanvas = document.getElementById('starfield');
 const starCtx = starfieldCanvas.getContext('2d');
 let stars = [];
 
-const MAX_STARS = 400; // teto pra evitar excesso em telas grandes/4K
-
+const MAX_STARS = 400;
 export function resizeStarfield() {
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const cssWidth = window.innerWidth;

@@ -1,6 +1,7 @@
 import { OPTIONS, RESUME_DELAY } from './config.js';
 import { normalizeAngle } from './utils.js';
 import { updateInfoPanel, resetInfoPanel } from './infoPanel.js';
+import { loadBiomaPage } from './landingLoader.js';
 
 const orbit = document.getElementById('orbit');
 const wheelWrap = document.getElementById('wheelWrap');
@@ -13,18 +14,17 @@ let radius;
 let currentAngle = 0;
 let targetAngle = null;
 let autoRotate = !prefersReducedMotion;
-const AUTO_SPEED = 0.06; // graus por frame
+const AUTO_SPEED = 0.06;
 let activeIndex = -1;
 let resumeTimer = null;
 let rafId = null;
 
-// cache de { node, inner } pra evitar querySelector dentro do loop de animação
+
 const nodeEls = [];
 
 export function computeRadius() {
   const size = Math.min(wheelWrap.clientWidth, wheelWrap.clientHeight);
-  // fallback: se o CSS ainda não aplicou o tamanho real do wheel-wrap,
-  // usa a variável --radius-wheel definida no CSS como referência segura
+
   if (!size || size <= 0) {
     const cssRadius = parseFloat(
       getComputedStyle(document.documentElement)
@@ -83,7 +83,7 @@ export function buildWheel() {
 
 function selectNode(index) {
   const opt = OPTIONS[index];
-  if (opt.comingSoon) return; // segurança extra: itens desativados não fazem nada
+  if (opt.comingSoon) return;
 
   if (resumeTimer !== null) {
     clearTimeout(resumeTimer);
@@ -95,15 +95,17 @@ function selectNode(index) {
   nodeEls.forEach(({ node }, i) => node.classList.toggle('active', i === index));
 
   const baseAngle = index * (360 / OPTIONS.length);
-  const desired = -baseAngle; // ângulo do orbit que traz esse nó pro topo
+  const desired = -baseAngle;
   const diff = normalizeAngle(desired - currentAngle);
-  targetAngle = currentAngle + diff; // caminho mais curto
+  targetAngle = currentAngle + diff;
 
   updateInfoPanel(index);
+
+  if (opt.slug) {
+    loadBiomaPage(opt.slug);
+  }
 }
 
-// Agenda a retomada automática da rotação, chamada assim que a roda
-// termina o giro assistido até o item selecionado.
 function scheduleResume() {
   if (resumeTimer !== null) return;
 
@@ -119,7 +121,7 @@ function scheduleResume() {
 function animate() {
   if (targetAngle !== null) {
     const diff = targetAngle - currentAngle;
-    currentAngle += diff * 0.08; // easing suave até o alvo
+    currentAngle += diff * 0.08;
     if (Math.abs(diff) < 0.05) {
       currentAngle = targetAngle;
       targetAngle = null;
@@ -131,7 +133,6 @@ function animate() {
 
   orbit.style.transform = `rotate(${currentAngle}deg)`;
 
-  // contra-rotação: mantém ícone/texto de cada nó sempre "em pé"
   nodeEls.forEach(({ inner }) => {
     inner.style.transform = `rotate(${-currentAngle}deg)`;
   });
